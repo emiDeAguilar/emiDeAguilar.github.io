@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aventa App — Control total de tu negocio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap"
+        rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --black: #0d0d0d;
+            --white: #f5f2ed;
+            --orange: #e85d04;
+            --orange-dim: #ff8c42;
+            --gray: #1a1a1a;
+            --mid: #2e2e2e;
+            --text-muted: #888;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--black);
+            color: var(--white);
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 300;
+            overflow-x: hidden;
+            cursor: default;
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem 3rem;
+            background: rgba(13, 13, 13, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid #1e1e1e;
+        }
+
+        .logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            letter-spacing: 0.12em;
+            color: var(--white);
+        }
+
+        .logo span {
+            color: var(--orange);
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--white);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .btn-nav {
+            background: var(--orange);
+            color: var(--black) !important;
+            font-weight: 500;
+            padding: 0.55rem 1.4rem;
+            border-radius: 2px;
+            transition: background 0.2s, transform 0.15s !important;
+        }
+
+        .btn-nav:hover {
+            background: var(--orange-dim) !important;
+            transform: translateY(-1px);
+        }
+
+        /* ── HERO ── */
+        .hero {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            padding: 8rem 3rem 4rem;
+            gap: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 60% 60% at 80% 50%, rgba(232, 93, 4, 0.08) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 80% at 10% 80%, rgba(232, 93, 4, 0.04) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            font-size: 0.72rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--orange);
+            border: 1px solid rgba(232, 93, 4, 0.4);
+            padding: 0.3rem 0.9rem;
+            margin-bottom: 1.6rem;
+            border-radius: 1px;
+            animation: fadeUp 0.7s ease both;
+        }
+
+        .hero h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(3.8rem, 7vw, 6.5rem);
+            line-height: 0.95;
+            letter-spacing: 0.03em;
+            animation: fadeUp 0.7s 0.1s ease both;
+        }
+
+        .hero h1 em {
+            font-style: normal;
+            color: var(--orange);
+            display: block;
+        }
+
+        .hero-sub {
+            margin-top: 1.8rem;
+            font-size: 1.05rem;
+            line-height: 1.75;
+            color: #aaa;
+            max-width: 420px;
+            animation: fadeUp 0.7s 0.2s ease both;
+        }
+
+        .hero-cta {
+            margin-top: 2.8rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            animation: fadeUp 0.7s 0.3s ease both;
+        }
+
+        .btn-primary {
+            background: var(--orange);
+            color: var(--black);
+            border: none;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 1rem 2.2rem;
+            cursor: pointer;
+            border-radius: 2px;
+            transition: background 0.2s, transform 0.15s;
+        }
+
+        .btn-primary:hover {
+            background: var(--orange-dim);
+            transform: translateY(-2px);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--white);
+            border: 1px solid #3a3a3a;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 300;
+            letter-spacing: 0.04em;
+            padding: 1rem 2rem;
+            cursor: pointer;
+            border-radius: 2px;
+            transition: border-color 0.2s, color 0.2s;
+        }
+
+        .btn-ghost:hover {
+            border-color: #666;
+            color: #ddd;
+        }
+
+        /* ── PHONE MOCKUP ── */
+        .phone-wrap {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fadeUp 0.8s 0.15s ease both;
+            position: relative;
+        }
+
+        .phone-wrap::before {
+            content: '';
+            position: absolute;
+            width: 260px;
+            height: 260px;
+            background: radial-gradient(circle, rgba(232, 93, 4, 0.15), transparent 70%);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .phone {
+            width: 230px;
+            background: #111;
+            border-radius: 36px;
+            border: 2px solid #2a2a2a;
+            padding: 12px;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.7), 0 0 0 1px #1a1a1a;
+            position: relative;
+        }
+
+        .phone-notch {
+            width: 70px;
+            height: 20px;
+            background: #0d0d0d;
+            border-radius: 0 0 14px 14px;
+            margin: 0 auto 10px;
+        }
+
+        .phone-screen {
+            background: #161616;
+            border-radius: 22px;
+            overflow: hidden;
+            height: 440px;
+        }
+
+        .app-header {
+            background: #1a1a1a;
+            padding: 14px 16px 10px;
+            border-bottom: 1px solid #242424;
+        }
+
+        .app-header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .app-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 0.08em;
+            color: var(--white);
+        }
+
+        .app-date {
+            font-size: 0.6rem;
+            color: #666;
+        }
+
+        .app-stat-row {
+            display: flex;
+            gap: 8px;
+        }
+
+        .app-stat {
+            flex: 1;
+            background: #222;
+            border-radius: 6px;
+            padding: 8px;
+        }
+
+        .app-stat-label {
+            font-size: 0.5rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .app-stat-val {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--white);
+            margin-top: 2px;
+        }
+
+        .app-stat-val.orange {
+            color: var(--orange);
+        }
+
+        .app-body {
+            padding: 10px;
+        }
+
+        .section-label {
+            font-size: 0.52rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: #555;
+            margin-bottom: 7px;
+        }
+
+        .sale-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 7px 8px;
+            background: #1e1e1e;
+            border-radius: 6px;
+            margin-bottom: 5px;
+        }
+
+        .sale-item-name {
+            font-size: 0.62rem;
+            color: #ccc;
+        }
+
+        .sale-item-time {
+            font-size: 0.5rem;
+            color: #555;
+            margin-top: 1px;
+        }
+
+        .sale-item-amt {
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: var(--orange);
+        }
+
+        .app-nav {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 52px;
+            background: #1a1a1a;
+            border-top: 1px solid #242424;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+
+        .nav-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            font-size: 0.45rem;
+            color: #555;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .nav-icon.active {
+            color: var(--orange);
+        }
+
+        .nav-icon svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .cobro-btn {
+            width: 38px;
+            height: 38px;
+            background: var(--orange);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: -10px;
+        }
+
+        .cobro-btn svg {
+            width: 20px;
+            height: 20px;
+            stroke: #000;
+        }
+
+        /* ── STATS BAR ── */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border-top: 1px solid #1e1e1e;
+            border-bottom: 1px solid #1e1e1e;
+        }
+
+        .stat-cell {
+            padding: 2.5rem 2rem;
+            border-right: 1px solid #1e1e1e;
+            text-align: center;
+            transition: background 0.2s;
+        }
+
+        .stat-cell:last-child {
+            border-right: none;
+        }
+
+        .stat-cell:hover {
+            background: #111;
+        }
+
+        .stat-num {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3rem;
+            letter-spacing: 0.04em;
+            color: var(--orange);
+            line-height: 1;
+        }
+
+        .stat-desc {
+            font-size: 0.78rem;
+            color: #666;
+            margin-top: 0.5rem;
+            letter-spacing: 0.03em;
+        }
+
+        /* ── FEATURES ── */
+        .features {
+            padding: 7rem 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 4rem;
+        }
+
+        .section-kicker {
+            font-size: 0.72rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--orange);
+            margin-bottom: 0.8rem;
+        }
+
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2.4rem, 4vw, 3.6rem);
+            letter-spacing: 0.04em;
+            line-height: 1;
+        }
+
+        .section-aside {
+            font-size: 0.88rem;
+            color: #666;
+            max-width: 280px;
+            text-align: right;
+            line-height: 1.7;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1px;
+            background: #1a1a1a;
+            border: 1px solid #1a1a1a;
+        }
+
+        .feature-card {
+            background: var(--black);
+            padding: 2.8rem 2.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: background 0.25s;
+        }
+
+        .feature-card:hover {
+            background: #0f0f0f;
+        }
+
+        .feature-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--orange);
+            transition: width 0.35s ease;
+        }
+
+        .feature-card:hover::after {
+            width: 100%;
+        }
+
+        .feature-num {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 4rem;
+            color: #1e1e1e;
+            line-height: 1;
+            margin-bottom: -0.6rem;
+            user-select: none;
+        }
+
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(232, 93, 4, 0.1);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.2rem;
+        }
+
+        .feature-icon svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--orange);
+        }
+
+        .feature-card h3 {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 0.8rem;
+            letter-spacing: 0.01em;
+        }
+
+        .feature-card p {
+            font-size: 0.88rem;
+            color: #666;
+            line-height: 1.75;
+        }
+
+        /* ── HOW IT WORKS ── */
+        .how {
+            padding: 7rem 3rem;
+            background: #080808;
+            border-top: 1px solid #1a1a1a;
+            border-bottom: 1px solid #1a1a1a;
+        }
+
+        .how-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            margin-top: 4rem;
+            position: relative;
+        }
+
+        .steps::before {
+            content: '';
+            position: absolute;
+            top: 2.2rem;
+            left: calc(16.66% + 0.5rem);
+            right: calc(16.66% + 0.5rem);
+            height: 1px;
+            background: linear-gradient(90deg, var(--orange) 0%, transparent 100%);
+        }
+
+        .step {
+            position: relative;
+        }
+
+        .step-dot {
+            width: 44px;
+            height: 44px;
+            background: var(--orange);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.4rem;
+            color: var(--black);
+            margin-bottom: 1.5rem;
+            box-shadow: 0 0 0 8px rgba(232, 93, 4, 0.1);
+        }
+
+        .step h4 {
+            font-weight: 500;
+            margin-bottom: 0.6rem;
+            font-size: 1rem;
+        }
+
+        .step p {
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.75;
+        }
+
+        /* ── CTA STRIP ── */
+        .cta-strip {
+            padding: 7rem 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .cta-strip h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2.8rem, 5vw, 4.5rem);
+            letter-spacing: 0.04em;
+            line-height: 0.95;
+        }
+
+        .cta-strip h2 span {
+            color: var(--orange);
+            display: block;
+        }
+
+        .cta-strip p {
+            font-size: 0.95rem;
+            color: #777;
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            border-top: 1px solid #1a1a1a;
+            padding: 2.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.4rem;
+            letter-spacing: 0.12em;
+            color: #333;
+        }
+
+        .footer-logo span {
+            color: var(--orange);
+        }
+
+        footer p {
+            font-size: 0.75rem;
+            color: #444;
+        }
+
+        /* ── ANIMATIONS ── */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(28px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.65s ease, transform 0.65s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 900px) {
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+                padding-top: 7rem;
+            }
+
+            .hero-sub {
+                margin: 1.5rem auto 0;
+            }
+
+            .hero-cta {
+                justify-content: center;
+            }
+
+            .phone-wrap {
+                order: -1;
+            }
+
+            .stats-bar {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .section-aside {
+                text-align: left;
+                max-width: 100%;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .steps::before {
+                display: none;
+            }
+
+            .cta-strip {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                padding: 1rem 1.5rem;
+            }
+
+            .nav-links {
+                gap: 1.5rem;
+            }
+
+            .hero,
+            .features,
+            .how,
+            .cta-strip {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <div class="logo">Aventas</div>
+        <div class="nav-links">
+            <a href="#features">Funciones</a>
+            <a href="#how">Cómo funciona</a>
+            <a href="#cta" class="btn-nav">Comenzar gratis</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-tag">App para negocios gastronómicos</div>
+            <h1>
+                Tu negocio,<br>
+                bajo
+                <em>control.</em>
+            </h1>
+            <p class="hero-sub">
+                Centraliza ventas, inventario y flujo de efectivo en una sola herramienta pensada para taquerías, fondas
+                y pequeños restaurantes.
+            </p>
+            <div class="hero-cta">
+                <button class="btn-primary">Descargar App</button>
+                <button class="btn-ghost">Ver demo →</button>
+            </div>
+        </div>
+
+
+    </section>
+
+    <!-- STATS BAR -->
+    <div class="stats-bar">
+        <div class="stat-cell reveal">
+            <div class="stat-num">3seg</div>
+            <div class="stat-desc">Para registrar una venta</div>
+        </div>
+        <div class="stat-cell reveal">
+            <div class="stat-num">100%</div>
+            <div class="stat-desc">Sin papeles ni hojas de cálculo</div>
+        </div>
+        <div class="stat-cell reveal">
+            <div class="stat-num">0</div>
+            <div class="stat-desc">Conocimientos técnicos necesarios</div>
+        </div>
+        <div class="stat-cell reveal">
+            <div class="stat-num">24/7</div>
+            <div class="stat-desc">Historial siempre disponible</div>
+        </div>
+    </div>
+
+    <!-- FEATURES -->
+    <section class="features" id="features">
+        <div class="section-header reveal">
+            <div>
+                <div class="section-kicker">Funcionalidades</div>
+                <div class="section-title">Todo lo que necesita<br>tu negocio</div>
+            </div>
+            <div class="section-aside">
+                Diseñado para el ritmo real de una cocina: rápido, concreto y sin complicaciones.
+            </div>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card reveal">
+                <div class="feature-num">01</div>
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
+                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="currentColor" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </div>
+                <h3>Cobro rápido</h3>
+                <p>Registra una venta en segundos. Selecciona los productos, confirma el monto y listo — sin demoras en
+                    caja.</p>
+            </div>
+            <div class="feature-card reveal">
+                <div class="feature-num">02</div>
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
+                        <rect x="2" y="3" width="20" height="18" rx="2" stroke="currentColor" />
+                        <path d="M8 7h8M8 11h8M8 15h4" stroke="currentColor" stroke-linecap="round" />
+                    </svg>
+                </div>
+                <h3>Historial diario de ingresos</h3>
+                <p>Consulta cada venta del día con hora, producto y monto. Cierra tu jornada sabiendo exactamente cuánto
+                    entraste.</p>
+            </div>
+            <div class="feature-card reveal">
+                <div class="feature-num">03</div>
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
+                        <path d="M20 7H4a2 2 0 00-2 2v6a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"
+                            stroke="currentColor" />
+                        <path d="M9 12h6M12 9v6" stroke="currentColor" stroke-linecap="round" />
+                    </svg>
+                </div>
+                <h3>Gestión de productos e inventario</h3>
+                <p>Administra tu menú y controla existencias básicas. Sabrás cuándo renovar antes de que te quedes sin
+                    stock.</p>
+            </div>
+            <div class="feature-card reveal">
+                <div class="feature-num">04</div>
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
+                        <path d="M3 3v18h18" stroke="currentColor" stroke-linecap="round" />
+                        <path d="M7 16l4-5 4 3 4-6" stroke="currentColor" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </div>
+                <h3>Desempeño claro y visual</h3>
+                <p>Visualiza tus ingresos diarios y semanales de un vistazo. Toma decisiones basadas en datos reales de
+                    tu negocio.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="how" id="how">
+        <div class="how-inner">
+            <div class="reveal">
+                <div class="section-kicker">Proceso</div>
+                <div class="section-title">Así funciona</div>
+            </div>
+            <div class="steps">
+                <div class="step reveal">
+                    <div class="step-dot">1</div>
+                    <h4>Configura tu menú</h4>
+                    <p>Agrega tus platillos y bebidas con nombre y precio en minutos. Sin tecnicismos ni formularios
+                        largos.</p>
+                </div>
+                <div class="step reveal">
+                    <div class="step-dot">2</div>
+                    <h4>Cobra en segundos</h4>
+                    <p>Usa el botón de cobro rápido para registrar ventas al instante. Ideal para el ritmo de servicio
+                        del mediodía.</p>
+                </div>
+                <div class="step reveal">
+                    <div class="step-dot">3</div>
+                    <h4>Revisa tu día</h4>
+                    <p>Al cerrar el turno, consulta tu historial completo de ventas e ingresos. Sin calculadoras, sin
+                        sorpresas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA STRIP -->
+    <section class="cta-strip" id="cta">
+        <div class="reveal">
+            <h2>Empieza hoy,<br><span>sin costo.</span></h2>
+        </div>
+        <div class="reveal">
+            <p>
+                Descarga Aventa y lleva el control de tu negocio desde el primer día. Disponible para iOS y Android. Sin
+                suscripciones obligatorias para comenzar.
+            </p>
+            <div class="cta-group">
+                <button class="btn-primary">Descargar para iOS</button>
+                <button class="btn-primary">Descargar para Android</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-logo">Aventas</div>
+        <p>© 2026 Aventa App. Hecho para micro negocios gastronómicos.</p>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((e, i) => {
+                if (e.isIntersecting) {
+                    setTimeout(() => e.target.classList.add('visible'), i * 80);
+                    observer.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.12 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+
+</html>
